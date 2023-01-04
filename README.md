@@ -4,20 +4,20 @@
 
 ###### Below you'll find all references and libraries
 
-## Library References
-
-- Retrofit
-- Koin
-- MVVM
-- RXJava
-- Live Data
-- View Binding
-
 ## Features
 
 - Home
 - Detail
 - Settings
+
+## Library References
+
+- Retrofit [https://square.github.io/retrofit/]
+- Koin [https://insert-koin.io/] 
+- RXJava [https://github.com/ReactiveX/RxJava]
+- Live Data [https://developer.android.com/topic/libraries/architecture/livedata]
+- View Binding [https://developer.android.com/topic/libraries/view-binding]
+- MVVM Design Pattern
 
 ### Special thanks to TMDB (REST API)
 https://developers.themoviedb.org
