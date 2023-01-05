@@ -55,12 +55,16 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun observeTrending() {
         viewModel.trendingResponseList.observe(viewLifecycleOwner) {
             adapterTrending.setData(it)
+            progress.visibility = View.GONE
+            trending_title.visibility = View.VISIBLE
         }
     }
 
     private fun observeTopRated() {
         viewModel.topratedResponseList.observe(viewLifecycleOwner) {
             adapterTopRated.setData(it)
+            progress.visibility = View.GONE
+            toprated_title.visibility = View.VISIBLE
         }
     }
 
@@ -69,7 +73,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val imageList = ArrayList<SlideModel>() // Create image list
 
         for (i in 0..5) {
-            imageList.add(SlideModel("${BuildConfig.TMDB_IMAGE_URL}${data[i].backdropPath}"))
+            imageList.add(SlideModel("${BuildConfig.TMDB_ORIGINAL_IMAGE_URL}${data[i].backdropPath}"))
         }
 
         image_slider.setImageList(imageList, ScaleTypes.CENTER_CROP)

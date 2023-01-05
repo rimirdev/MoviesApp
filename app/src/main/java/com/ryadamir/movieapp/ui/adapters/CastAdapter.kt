@@ -19,7 +19,7 @@ class CastAdapter : RecyclerView.Adapter<CastAdapter.CastViewHolder>() {
     inner class CastViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(cast: Cast) {
 
-            Glide.with(itemView).load("${BuildConfig.TMDB_IMAGE_URL}${cast.profil}")
+            Glide.with(itemView).load("${BuildConfig.TMDB_500_IMAGE_URL}${cast.profil}")
                 .transition(DrawableTransitionOptions.withCrossFade()).centerCrop()
                 .apply(RequestOptions.circleCropTransform()).into(itemView.iv_cast)
             itemView.txt_name_cast.text = cast.name

@@ -40,24 +40,33 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:elevation="4dp"
-                    android:background="@drawable/bg_gradient_black" />
+                    android:background="@drawable/bg_gradient_black"
+                    android:elevation="4dp" />
 
                 <TextView
                     android:id="@+id/txt_title_discover"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center_horizontal"
-                    android:gravity="center"
-                    android:fontFamily="@font/open_sans_titles"
-                    android:padding="40dp"
                     android:elevation="6dp"
+                    android:fontFamily="@font/open_sans_titles"
+                    android:gravity="center"
+                    android:padding="40dp"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     tools:text="@string/title_movie" />
 
             </com.google.android.material.card.MaterialCardView>
+
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_horizontal"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/color_primarydark"
+                android:indeterminateTintMode="src_atop" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -66,14 +75,17 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/trending_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:layout_marginStart="16dp"
-                    android:text="@string/trending"
                     android:fontFamily="@font/open_sans_titles"
+                    android:text="@string/trending"
+                    android:textColor="@color/white"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="invisible" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_trending"
@@ -82,8 +94,8 @@
                     android:layout_marginTop="8dp"
                     android:clipToPadding="false"
                     android:orientation="horizontal"
-                    android:paddingVertical="10dp"
                     android:paddingHorizontal="16dp"
+                    android:paddingVertical="10dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:ignore="RtlSymmetry"
                     tools:itemCount="5"
@@ -102,14 +114,17 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/toprated_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:layout_marginStart="16dp"
-                    android:text="@string/toprated_movies"
                     android:fontFamily="@font/open_sans_titles"
+                    android:text="@string/toprated_movies"
+                    android:textColor="@color/white"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="invisible" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_toprated"
@@ -118,8 +133,8 @@
                     android:layout_marginTop="8dp"
                     android:clipToPadding="false"
                     android:orientation="horizontal"
-                    android:paddingVertical="10dp"
                     android:paddingHorizontal="16dp"
+                    android:paddingVertical="10dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:ignore="RtlSymmetry"
                     tools:itemCount="5"

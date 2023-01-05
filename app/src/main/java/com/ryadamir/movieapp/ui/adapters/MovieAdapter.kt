@@ -26,7 +26,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.TrendingViewHolder>() {
 
             itemView.title_movie.text = movie.title
 
-            Glide.with(itemView).load("${BuildConfig.TMDB_IMAGE_URL}${movie.posterPath}")
+            Glide.with(itemView).load("${BuildConfig.TMDB_500_IMAGE_URL}${movie.posterPath}")
                 .transition(DrawableTransitionOptions.withCrossFade()).centerCrop()
                 .into(itemView.iv_trending)
 

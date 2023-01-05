@@ -64,23 +64,32 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/open_sans_titles"
-                android:text="Title Movie"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 tools:ignore="HardcodedText" />
 
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_horizontal"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/color_primarydark"
+                android:indeterminateTintMode="src_atop" />
+
             <LinearLayout
+                android:id="@+id/infos_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="invisible">
 
                 <TextView
                     android:id="@+id/txt_genre_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/open_sans"
-                    android:text="Genre"
                     android:textSize="12sp"
                     android:textStyle="italic"
                     tools:ignore="HardcodedText" />
@@ -92,7 +101,6 @@
                     android:layout_marginTop="12dp"
                     android:fontFamily="@font/open_sans"
                     android:justificationMode="inter_word"
-                    android:text="Descrintion"
                     android:textSize="16sp"
                     tools:ignore="HardcodedText"
                     tools:targetApi="o" />
@@ -148,6 +156,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/cast_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
@@ -155,7 +164,8 @@
                 android:fontFamily="@font/open_sans_titles"
                 android:text="@string/cast"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="invisible" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -173,6 +183,7 @@
                     android:elevation="8dp"
                     android:orientation="horizontal"
                     android:paddingHorizontal="16dp"
+                    android:visibility="invisible"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:itemCount="5"
                     tools:listitem="@layout/list_cast" />
@@ -180,6 +191,7 @@
             </androidx.cardview.widget.CardView>
 
             <TextView
+                android:id="@+id/trailer_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
@@ -187,13 +199,15 @@
                 android:fontFamily="@font/open_sans_titles"
                 android:text="@string/trailer"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone" />
 
             <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
                 android:id="@+id/youtube_video"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="40dp"
+                android:visibility="gone"
                 app:autoPlay="false"
                 app:showFullScreenButton="false" />
 

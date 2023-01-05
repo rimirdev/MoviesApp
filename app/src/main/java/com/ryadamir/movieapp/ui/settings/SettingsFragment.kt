@@ -1,8 +1,10 @@
 package com.ryadamir.movieapp.ui.settings
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.*
 import android.view.View
 import android.widget.Toast
@@ -10,6 +12,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.ryadamir.movieapp.BuildConfig
 import com.ryadamir.movieapp.R
+import com.ryadamir.movieapp.util.Constant.DEV_LINK
+import com.ryadamir.movieapp.util.Constant.GITHUB_DEV_LINK
 import kotlinx.android.synthetic.main.fragment_settings.*
 import java.io.File
 
@@ -22,6 +26,22 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
         setVersion()
         setClearCacheAction()
+        setGithubVisitAction()
+        setDeveloperVisitAction()
+    }
+
+    private fun setDeveloperVisitAction() {
+        developer.setOnClickListener() {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(DEV_LINK))
+            startActivity(browserIntent)
+        }
+    }
+
+    private fun setGithubVisitAction() {
+        github.setOnClickListener() {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(GITHUB_DEV_LINK))
+            startActivity(browserIntent)
+        }
     }
 
     private fun setClearCacheAction() {

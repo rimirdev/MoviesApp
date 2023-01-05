@@ -18,5 +18,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="ache_cleared">Cache cleared !</string>
-    <string name="message_for_reviwer">I used the original size of pictures, beacasue it looks beautiful 😅, so don\'t hesitate to clear the cach !</string>
+    <string name="github">Github</string>
+    <string name="github_link">https://github.com/ryadamir/MoviesApp</string>
+    <string name="developer_page">Developer</string>
 </resources>

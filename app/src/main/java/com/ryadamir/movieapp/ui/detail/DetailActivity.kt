@@ -55,7 +55,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun shareMovie(detailResponse: DetailResponse) {
-        btn_share.setOnClickListener {
+        binding.btnShare.setOnClickListener {
             val url = detailResponse.url
             val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
@@ -69,27 +69,34 @@ class DetailActivity : AppCompatActivity() {
 
     private fun observeDetailMovie() {
         viewModel.detailResponse.observe(this) {
+            binding.progress.visibility = View.GONE
             loadPoster(it)
             loadDetail(it)
             shareMovie(it)
+            binding.infosContainer.visibility = View.VISIBLE
         }
     }
 
     private fun observeVideoMovie() {
         viewModel.videosResponse.observe(this) {
             loadVideo(it)
+            binding.trailerTitle.visibility = View.VISIBLE
+            binding.youtubeVideo.visibility = View.VISIBLE
         }
     }
 
     private fun observeCast() {
         viewModel.castResponseList.observe(this) {
             adapterCast.setDataCast(it)
+            binding.castTitle.visibility = View.VISIBLE
+            binding.rvCast.visibility = View.VISIBLE
+
         }
     }
 
     private fun loadPoster(detailResponse: DetailResponse) {
         Glide.with(this)
-            .load("${BuildConfig.TMDB_IMAGE_URL}${detailResponse.backdropPath}")
+            .load("${BuildConfig.TMDB_ORIGINAL_IMAGE_URL}${detailResponse.backdropPath}")
             .transition(DrawableTransitionOptions.withCrossFade())
             .centerCrop()
             .into(binding.ivPoster)
@@ -105,13 +112,15 @@ class DetailActivity : AppCompatActivity() {
         binding.txtDurationDetail.text =
             resources.getString(R.string.duration) + convertDuration(detailResponse.duration)
 
-        binding.txtRatingDetail.text = resources.getString(R.string.rating) + String.format("%.1f",detailResponse.rating).toDouble() + " /10"
+        binding.txtRatingDetail.text =
+            resources.getString(R.string.rating) + String.format("%.1f", detailResponse.rating)
+                .toDouble() + " /10"
         binding.ratingBar.rating = detailResponse.rating / 2
 
     }
 
     private fun loadVideo(videos: ArrayList<Videos>) {
-        youtube_video?.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+        binding.youtubeVideo.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
                 youTubePlayer.cueVideo(videos[0].key, 0f)
             }
@@ -124,7 +133,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun navigationBack() {
-        iv_back.setOnClickListener {
+        binding.ivBack.setOnClickListener {
             finish()
         }
     }
