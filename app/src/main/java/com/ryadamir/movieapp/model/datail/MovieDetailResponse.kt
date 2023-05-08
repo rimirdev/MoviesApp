@@ -2,7 +2,7 @@ package com.ryadamir.movieapp.model.datail
 
 import com.google.gson.annotations.SerializedName
 
-data class DetailResponse(
+data class MovieDetailResponse(
     @SerializedName("homepage")
     val url: String,
     @SerializedName("vote_average")

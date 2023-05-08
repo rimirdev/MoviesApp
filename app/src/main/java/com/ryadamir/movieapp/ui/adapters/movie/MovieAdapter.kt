@@ -1,4 +1,4 @@
-package com.ryadamir.movieapp.ui.adapters
+package com.ryadamir.movieapp.ui.adapters.movie
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +9,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.ryadamir.movieapp.BuildConfig
 import com.ryadamir.movieapp.R
 import com.ryadamir.movieapp.listener.OnClickItemMovie
-import com.ryadamir.movieapp.model.trending.Movie
+import com.ryadamir.movieapp.model.trending.movies.Movie
 import kotlinx.android.synthetic.main.list_movie.view.*
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.TrendingViewHolder>() {
@@ -27,8 +27,10 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.TrendingViewHolder>() {
             itemView.title_movie.text = movie.title
 
             Glide.with(itemView).load("${BuildConfig.TMDB_500_IMAGE_URL}${movie.posterPath}")
-                .transition(DrawableTransitionOptions.withCrossFade()).centerCrop()
-                .into(itemView.iv_trending)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .centerCrop()
+                .into(itemView.iv_movie)
+
 
         }
     }

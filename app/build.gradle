@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-android-extensions'
     id 'kotlin-kapt'
+    id 'realm-android'
 }
 
 
@@ -19,7 +20,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "TMDB_API_KEY", '"c9856d0cb57c3f14bf75bdc6c063b8f3"')
+        buildConfigField("String", "TMDB_API_KEY", '"6bafa36cf0ec8f011c8e84acf965d029"')
         buildConfigField("String", "TMDB_ENDPOINT", '"https://api.themoviedb.org/3/"')
         buildConfigField("String", "TMDB_ORIGINAL_IMAGE_URL", '"http://image.tmdb.org/t/p/original"')
         buildConfigField("String", "TMDB_500_IMAGE_URL", '"http://image.tmdb.org/t/p/w500"')
@@ -106,4 +107,10 @@ dependencies {
 
     //BottomBar
     implementation 'nl.joery.animatedbottombar:library:1.0.9'
+
+    //Room
+    implementation "androidx.room:room-runtime:2.2.6"
+    kapt "androidx.room:room-compiler:2.2.6"
+    implementation 'android.arch.persistence.room:runtime:1.1.1'
+    kapt 'android.arch.persistence.room:compiler:1.1.1'
 }

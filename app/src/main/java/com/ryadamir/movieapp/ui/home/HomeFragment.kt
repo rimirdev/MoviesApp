@@ -10,11 +10,15 @@ import com.denzcoskun.imageslider.interfaces.ItemClickListener
 import com.denzcoskun.imageslider.models.SlideModel
 import com.ryadamir.movieapp.BuildConfig
 import com.ryadamir.movieapp.R
-import com.ryadamir.movieapp.ui.adapters.MovieAdapter
+import com.ryadamir.movieapp.ui.adapters.movie.MovieAdapter
 import com.ryadamir.movieapp.listener.OnClickItemMovie
+import com.ryadamir.movieapp.listener.OnClickItemSerie
 import com.ryadamir.movieapp.model.discover.Discover
-import com.ryadamir.movieapp.model.trending.Movie
-import com.ryadamir.movieapp.ui.detail.DetailActivity
+import com.ryadamir.movieapp.model.trending.movies.Movie
+import com.ryadamir.movieapp.model.trending.series.Series
+import com.ryadamir.movieapp.ui.adapters.serie.SeriesAdapter
+import com.ryadamir.movieapp.ui.detail.DetailMovieActivity
+import com.ryadamir.movieapp.ui.detail.DetailSerieActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -26,6 +30,20 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private val adapterTrending: MovieAdapter by lazy {
         MovieAdapter()
     }
+    private val adapterTrendingSeries: SeriesAdapter by lazy {
+        SeriesAdapter()
+    }
+    private val adapterNetflix: SeriesAdapter by lazy {
+        SeriesAdapter()
+    }
+
+    private val adapterHbo: SeriesAdapter by lazy {
+        SeriesAdapter()
+    }
+
+    private val adapterApple: SeriesAdapter by lazy {
+        SeriesAdapter()
+    }
     private val adapterTopRated: MovieAdapter by lazy {
         MovieAdapter()
     }
@@ -34,13 +52,26 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
 
         setListTrending()
-        observeTrending()
+        setListTrendingSeries()
+        setListNetflix()
+        setListHBO()
+        setListApple()
         setListTopRated()
-        observeTopRated()
+
         observeDiscover()
+        observeTrending()
+        observeTrendingSeries()
+        observeNetflix()
+        observeHBO()
+        observeApple()
+        observeTopRated()
 
         viewModel.requestDiscover()
         viewModel.requestTrending()
+        viewModel.requestTrendingSeries()
+        viewModel.requestNetflix()
+        viewModel.requestHBO()
+        viewModel.requestApple()
         viewModel.requestTopRated()
 
     }
@@ -56,7 +87,36 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         viewModel.trendingResponseList.observe(viewLifecycleOwner) {
             adapterTrending.setData(it)
             progress.visibility = View.GONE
-            trending_title.visibility = View.VISIBLE
+            trending_movies_title.visibility = View.VISIBLE
+        }
+    }
+    private fun observeNetflix() {
+        viewModel.netflixResponseList.observe(viewLifecycleOwner) {
+            adapterNetflix.setData(it)
+            progress.visibility = View.GONE
+            netflix_title.visibility = View.VISIBLE
+        }
+    }
+    private fun observeHBO() {
+        viewModel.hboResponseList.observe(viewLifecycleOwner) {
+            adapterHbo.setData(it)
+            progress.visibility = View.GONE
+            hbo_title.visibility = View.VISIBLE
+        }
+    }
+
+    private fun observeApple() {
+        viewModel.appleResponseList.observe(viewLifecycleOwner) {
+            adapterApple.setData(it)
+            progress.visibility = View.GONE
+            apple_title.visibility = View.VISIBLE
+        }
+    }
+    private fun observeTrendingSeries() {
+        viewModel.trendingSeriesResponseList.observe(viewLifecycleOwner) {
+            adapterTrendingSeries.setData(it)
+            progress.visibility = View.GONE
+            trending_series_title.visibility = View.VISIBLE
         }
     }
 
@@ -87,7 +147,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun navigationToDetailDiscover(discover: ArrayList<Discover>) {
         image_slider.setItemClickListener(object : ItemClickListener {
             override fun onItemSelected(position: Int) {
-                val intent = Intent(activity, DetailActivity::class.java)
+                val intent = Intent(activity, DetailMovieActivity::class.java)
                 intent.putExtra("id", discover[position].id)
                 startActivity(intent)
             }
@@ -104,6 +164,44 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
+    private fun setListTrendingSeries() {
+        rv_trending_series.setHasFixedSize(true)
+        rv_trending_series.adapter = adapterTrendingSeries
+        adapterTrendingSeries.onClickListener = object : OnClickItemSerie {
+            override fun onClick(movie: Series) {
+                navigationToDetailSeries(movie)
+            }
+        }
+    }
+    private fun setListNetflix() {
+        rv_netflix.setHasFixedSize(true)
+        rv_netflix.adapter = adapterNetflix
+        adapterNetflix.onClickListener = object : OnClickItemSerie {
+            override fun onClick(movie: Series) {
+                navigationToDetailSeries(movie)
+            }
+        }
+    }
+
+    private fun setListHBO() {
+        rv_hbo.setHasFixedSize(true)
+        rv_hbo.adapter = adapterHbo
+        adapterHbo.onClickListener = object : OnClickItemSerie {
+            override fun onClick(movie: Series) {
+                navigationToDetailSeries(movie)
+            }
+        }
+    }
+    private fun setListApple() {
+        rv_apple.setHasFixedSize(true)
+        rv_apple.adapter = adapterApple
+        adapterApple.onClickListener = object : OnClickItemSerie {
+            override fun onClick(movie: Series) {
+                navigationToDetailSeries(movie)
+            }
+        }
+    }
+
     private fun setListTopRated() {
         rv_toprated.setHasFixedSize(true)
         rv_toprated.adapter = adapterTopRated
@@ -115,7 +213,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun navigationToDetail(movie: Movie) {
-        val intent = Intent(activity, DetailActivity::class.java)
+        val intent = Intent(activity, DetailMovieActivity::class.java)
+        intent.putExtra("id", movie.id)
+        startActivity(intent)
+    }
+
+    private fun navigationToDetailSeries(movie: Series) {
+        val intent = Intent(activity, DetailSerieActivity::class.java)
         intent.putExtra("id", movie.id)
         startActivity(intent)
     }

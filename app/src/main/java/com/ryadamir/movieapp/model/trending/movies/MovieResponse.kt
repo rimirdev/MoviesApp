@@ -1,4 +1,4 @@
-package com.ryadamir.movieapp.model.trending
+package com.ryadamir.movieapp.model.trending.movies
 
 import com.google.gson.annotations.SerializedName
 

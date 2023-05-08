@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="300dp">
 
-
         <ImageView
             android:id="@+id/iv_poster"
             android:layout_width="match_parent"
@@ -41,6 +40,7 @@
             android:src="@drawable/ic_outline_share_24"
             tools:ignore="HardcodedText" />
 
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -57,16 +57,32 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/txt_title_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/open_sans_titles"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                tools:ignore="HardcodedText" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txt_title_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/open_sans_titles"
+                    android:textSize="24sp"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cb_fav"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center_vertical"
+                    android:button="@drawable/favorite_list"
+                    android:gravity="center"
+                    app:useMaterialThemeColors="false" />
+            </LinearLayout>
 
             <ProgressBar
                 android:id="@+id/progress"
@@ -155,6 +171,18 @@
 
             </LinearLayout>
 
+            <Button
+                android:id="@+id/play_cloudstream"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/bottomBar"
+                android:text="@string/play_on_cloudstream"
+                android:textColor="@color/white"
+                android:visibility="invisible"></Button>
+
+
             <TextView
                 android:id="@+id/cast_title"
                 android:layout_width="match_parent"
@@ -177,7 +205,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_cast"
                     android:layout_width="match_parent"
-                    android:layout_height="110dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:clipToPadding="false"
                     android:elevation="8dp"
@@ -210,6 +238,41 @@
                 android:visibility="gone"
                 app:autoPlay="false"
                 app:showFullScreenButton="false" />
+
+            <TextView
+                android:id="@+id/related_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/open_sans_titles"
+                android:text="@string/cast"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:visibility="invisible" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/color_primary"
+                android:elevation="8dp"
+                app:cardElevation="8dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_related"
+                    android:layout_width="match_parent"
+                    android:layout_height="110dp"
+                    android:layout_marginTop="8dp"
+                    android:clipToPadding="false"
+                    android:elevation="8dp"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="16dp"
+                    android:visibility="invisible"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="5"
+                    tools:listitem="@layout/list_cast" />
+
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 

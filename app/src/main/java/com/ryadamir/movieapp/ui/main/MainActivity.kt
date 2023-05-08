@@ -6,8 +6,10 @@ import android.view.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.ryadamir.movieapp.R
+import com.ryadamir.movieapp.ui.favorite.FavoriteFragment
 import com.ryadamir.movieapp.ui.settings.SettingsFragment
 import com.ryadamir.movieapp.ui.home.HomeFragment
+import com.ryadamir.movieapp.ui.search.SearchFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import nl.joery.animatedbottombar.AnimatedBottomBar
 
@@ -39,6 +41,14 @@ class MainActivity : AppCompatActivity() {
                         .replace(R.id.frame_container, HomeFragment())
                         .commit()
                 } else if (newIndex == 1) {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.frame_container, SearchFragment())
+                        .commit()
+                } else if (newIndex == 2) {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.frame_container, FavoriteFragment())
+                        .commit()
+                } else if (newIndex == 3) {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.frame_container, SettingsFragment())
                         .commit()

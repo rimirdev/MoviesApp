@@ -12,4 +12,5 @@
     <color name="color_accent">#B80403</color>
     <color name="color_rating">#FBC02D</color>
     <color name="bottomBar">#1D1E20</color>
+    <color name="grey_dark">#3D3F43</color>
 </resources>

@@ -22,7 +22,8 @@ class CastAdapter : RecyclerView.Adapter<CastAdapter.CastViewHolder>() {
             Glide.with(itemView).load("${BuildConfig.TMDB_500_IMAGE_URL}${cast.profil}")
                 .transition(DrawableTransitionOptions.withCrossFade()).centerCrop()
                 .apply(RequestOptions.circleCropTransform()).into(itemView.iv_cast)
-            itemView.txt_name_cast.text = cast.name
+            itemView.txt_name_cast.text = cast.originalName
+            itemView.txt_name_cast_movie.text = cast.name
         }
     }
 
