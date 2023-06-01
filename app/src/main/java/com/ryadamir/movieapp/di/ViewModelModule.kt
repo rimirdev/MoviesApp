@@ -1,6 +1,7 @@
 package com.ryadamir.movieapp.di
 
 import com.ryadamir.movieapp.ui.detail.DetailViewModel
+import com.ryadamir.movieapp.ui.episodes.EpisodesViewModel
 import com.ryadamir.movieapp.ui.favorite.FavoriteViewModel
 import com.ryadamir.movieapp.ui.home.HomeViewModel
 import com.ryadamir.movieapp.ui.search.SearchViewModel
@@ -19,5 +20,8 @@ val viewModelModule = module {
     }
     viewModel {
         FavoriteViewModel(get())
+    }
+    viewModel {
+        EpisodesViewModel(get())
     }
 }

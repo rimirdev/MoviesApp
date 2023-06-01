@@ -8,6 +8,7 @@ import com.ryadamir.movieapp.model.datail.MovieDetailResponse
 import com.ryadamir.movieapp.model.datail.SerieDetailResponse
 import com.ryadamir.movieapp.model.videos.VideosResponse
 import com.ryadamir.movieapp.model.discover.DiscoverResponse
+import com.ryadamir.movieapp.model.episodes.EpisodesResponse
 import com.ryadamir.movieapp.model.search.serie.SearchSerieResponse
 import com.ryadamir.movieapp.model.trending.movies.MovieResponse
 import com.ryadamir.movieapp.model.trending.series.SeriesResponse
@@ -47,6 +48,18 @@ interface Api {
         @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
         @Query("language") lang: String = Constant.LANGUAGE
     ): Observable<SeriesResponse>
+    @GET("discover/tv")
+    fun getPrime(
+        @Query("with_networks") network: String = "1024",
+        @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
+        @Query("language") lang: String = Constant.LANGUAGE
+    ): Observable<SeriesResponse>
+    @GET("discover/tv")
+    fun getParamount(
+        @Query("with_networks") network: String = "4330",
+        @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
+        @Query("language") lang: String = Constant.LANGUAGE
+    ): Observable<SeriesResponse>
 
     @GET("movie/top_rated")
     fun getTopRated(
@@ -74,6 +87,14 @@ interface Api {
         @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
         @Query("language") lang: String = Constant.LANGUAGE
     ): Observable<VideosResponse>
+
+    @GET("tv/{series_id}/season/{season_number}")
+    fun getEpisodes(
+        @Path("series_id") serie: Int,
+        @Path("season_number") season: Int,
+        @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
+        @Query("language") lang: String = Constant.LANGUAGE
+    ): Observable<EpisodesResponse>
 
     @GET("tv/{tv_id}/videos")
     fun getSerieVideos(

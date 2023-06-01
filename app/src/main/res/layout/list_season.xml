@@ -9,8 +9,8 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:layout_width="140dp"
-        android:layout_height="210dp">
+        android:layout_width="130dp"
+        android:layout_height="200dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -47,7 +47,7 @@
                 android:lines="2"
                 android:maxEms="6"
                 android:layout_margin="4dp"
-                android:text="EP 26"
+                android:text="NaN"
                 android:textColor="@color/white"
                 android:textSize="8sp"
                 android:textStyle="bold"
@@ -67,7 +67,7 @@
         android:gravity="center"
         android:lines="2"
         android:maxEms="6"
-        android:text="Movie"
+        android:text=""
         android:textColor="@color/white"
         android:textSize="12sp"
         tools:ignore="HardcodedText" />
@@ -81,7 +81,7 @@
         android:fontFamily="@font/open_sans"
         android:gravity="center"
         android:maxEms="6"
-        android:text="Movie"
+        android:text=""
         android:textColor="@color/grey_font"
         android:textSize="10sp"
         tools:ignore="HardcodedText" />

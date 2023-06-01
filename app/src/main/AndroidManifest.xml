@@ -18,6 +18,9 @@
         <activity android:name=".ui.detail.DetailMovieActivity" />
         <activity android:name=".ui.detail.DetailSerieActivity" />
         <activity
+            android:name=".ui.episodes.EpisodesActivity"
+            android:hardwareAccelerated="true" />
+        <activity
             android:name=".ui.main.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan">

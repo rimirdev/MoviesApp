@@ -8,10 +8,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.ryadamir.movieapp.BuildConfig
 import com.ryadamir.movieapp.R
+import com.ryadamir.movieapp.listener.OnClickItemSaison
 import com.ryadamir.movieapp.listener.OnClickItemSerie
 import com.ryadamir.movieapp.model.datail.Saisons
-import com.ryadamir.movieapp.model.trending.series.Series
-import kotlinx.android.synthetic.main.list_movie.view.*
 import kotlinx.android.synthetic.main.list_movie.view.iv_movie
 import kotlinx.android.synthetic.main.list_movie.view.title_movie
 import kotlinx.android.synthetic.main.list_season.view.*
@@ -19,29 +18,29 @@ import kotlinx.android.synthetic.main.list_season.view.*
 class SeasonsAdapter : RecyclerView.Adapter<SeasonsAdapter.TrendingViewHolder>() {
 
     private var list: MutableList<Saisons> = mutableListOf()
-    var onClickListener: OnClickItemSerie? = null
+    var onClickListener: OnClickItemSaison? = null
 
     inner class TrendingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(movie: Saisons) {
+        fun bind(saison: Saisons) {
 
-            /*itemView.setOnClickListener {
-                onClickListener?.onClick(movie)
-            }*/
+            itemView.setOnClickListener {
+                onClickListener?.onClick(saison)
+            }
 
             itemView.title_movie.text =
-                itemView.context.getString(R.string.saison) + " " + movie.number
+                itemView.context.getString(R.string.saison) + " " + saison.number
 
             itemView.title_episodes.text =
-                movie.episodes.toString() + " " + itemView.context.getString(R.string.episodes2)
+                saison.episodes.toString() + " " + itemView.context.getString(R.string.episodes2)
 
             try {
                 itemView.title_year.text =
-                    movie.date.dropLast(movie.date.length - 4)
+                    saison.date.dropLast(saison.date.length - 4)
             } catch (e: Exception) {
 
             }
 
-            Glide.with(itemView).load("${BuildConfig.TMDB_500_IMAGE_URL}${movie.poster}")
+            Glide.with(itemView).load("${BuildConfig.TMDB_500_IMAGE_URL}${saison.poster}")
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .centerCrop()
                 .into(itemView.iv_movie)

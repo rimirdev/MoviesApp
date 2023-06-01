@@ -40,4 +40,7 @@
     <string name="episodes2">Episodes</string>
     <string name="favorite">Favorite</string>
     <string name="favorites">Favorites</string>
+    <string name="prime">Prime</string>
+    <string name="paramount">Paramount+</string>
+    <string name="mins">mins</string>
 </resources>

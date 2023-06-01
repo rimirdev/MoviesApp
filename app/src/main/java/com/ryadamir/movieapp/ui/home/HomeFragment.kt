@@ -44,6 +44,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private val adapterApple: SeriesAdapter by lazy {
         SeriesAdapter()
     }
+    private val adapterPrime: SeriesAdapter by lazy {
+        SeriesAdapter()
+    }
+    private val adapterParamount: SeriesAdapter by lazy {
+        SeriesAdapter()
+    }
     private val adapterTopRated: MovieAdapter by lazy {
         MovieAdapter()
     }
@@ -56,6 +62,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         setListNetflix()
         setListHBO()
         setListApple()
+        setListPrime()
+        setListParamount()
         setListTopRated()
 
         observeDiscover()
@@ -64,6 +72,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         observeNetflix()
         observeHBO()
         observeApple()
+        observePrime()
+        observeParamount()
         observeTopRated()
 
         viewModel.requestDiscover()
@@ -72,6 +82,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         viewModel.requestNetflix()
         viewModel.requestHBO()
         viewModel.requestApple()
+        viewModel.requestPrime()
+        viewModel.requestParamount()
         viewModel.requestTopRated()
 
     }
@@ -90,6 +102,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             trending_movies_title.visibility = View.VISIBLE
         }
     }
+
     private fun observeNetflix() {
         viewModel.netflixResponseList.observe(viewLifecycleOwner) {
             adapterNetflix.setData(it)
@@ -97,6 +110,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             netflix_title.visibility = View.VISIBLE
         }
     }
+
     private fun observeHBO() {
         viewModel.hboResponseList.observe(viewLifecycleOwner) {
             adapterHbo.setData(it)
@@ -112,6 +126,22 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             apple_title.visibility = View.VISIBLE
         }
     }
+
+    private fun observePrime() {
+        viewModel.primeResponseList.observe(viewLifecycleOwner) {
+            adapterPrime.setData(it)
+            progress.visibility = View.GONE
+            prime_title.visibility = View.VISIBLE
+        }
+    }
+    private fun observeParamount() {
+        viewModel.paramountResponseList.observe(viewLifecycleOwner) {
+            adapterParamount.setData(it)
+            progress.visibility = View.GONE
+            paramount_title.visibility = View.VISIBLE
+        }
+    }
+
     private fun observeTrendingSeries() {
         viewModel.trendingSeriesResponseList.observe(viewLifecycleOwner) {
             adapterTrendingSeries.setData(it)
@@ -173,6 +203,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         }
     }
+
     private fun setListNetflix() {
         rv_netflix.setHasFixedSize(true)
         rv_netflix.adapter = adapterNetflix
@@ -192,10 +223,31 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         }
     }
+
     private fun setListApple() {
         rv_apple.setHasFixedSize(true)
         rv_apple.adapter = adapterApple
         adapterApple.onClickListener = object : OnClickItemSerie {
+            override fun onClick(movie: Series) {
+                navigationToDetailSeries(movie)
+            }
+        }
+    }
+
+    private fun setListPrime() {
+        rv_prime.setHasFixedSize(true)
+        rv_prime.adapter = adapterPrime
+        adapterPrime.onClickListener = object : OnClickItemSerie {
+            override fun onClick(movie: Series) {
+                navigationToDetailSeries(movie)
+            }
+        }
+    }
+
+    private fun setListParamount() {
+        rv_paramount.setHasFixedSize(true)
+        rv_paramount.adapter = adapterParamount
+        adapterParamount.onClickListener = object : OnClickItemSerie {
             override fun onClick(movie: Series) {
                 navigationToDetailSeries(movie)
             }

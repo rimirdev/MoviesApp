@@ -10,22 +10,25 @@ import android.view.WindowInsetsController
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.ryadamir.movieapp.BuildConfig
 import com.ryadamir.movieapp.R
-import com.ryadamir.movieapp.databinding.ActivityDetailBinding
 import com.ryadamir.movieapp.databinding.ActivityDetailSerieBinding
-import com.ryadamir.movieapp.model.datail.MovieDetailResponse
+import com.ryadamir.movieapp.listener.OnClickItemSaison
+import com.ryadamir.movieapp.model.datail.Saisons
 import com.ryadamir.movieapp.model.datail.SerieDetailResponse
 import com.ryadamir.movieapp.model.videos.Videos
 import com.ryadamir.movieapp.ui.adapters.CastAdapter
 import com.ryadamir.movieapp.ui.adapters.serie.SeasonsAdapter
+import com.ryadamir.movieapp.ui.adapters.videos.VideosAdapter
+import com.ryadamir.movieapp.ui.episodes.EpisodesActivity
 import com.ryadamir.movieapp.util.convertDuration
 import kotlinx.android.synthetic.main.activity_detail.*
-import org.koin.android.ext.android.bind
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
@@ -41,6 +44,9 @@ class DetailSerieActivity : AppCompatActivity() {
     }
     private val adapterSeasons: SeasonsAdapter by lazy {
         SeasonsAdapter()
+    }
+    private val adapterVideos: VideosAdapter by lazy {
+        VideosAdapter()
     }
     private val id: Int by lazy {
         intent.getIntExtra("id", 0)
@@ -119,9 +125,14 @@ class DetailSerieActivity : AppCompatActivity() {
 
     private fun observeVideoMovie() {
         viewModel.videosResponse.observe(this) {
-            loadVideo(it)
-            binding.trailerTitle.visibility = View.VISIBLE
-            binding.youtubeVideo.visibility = View.VISIBLE
+
+            if (cleanVideosList(it).distinct().size > 1) {
+                adapterVideos.setData(cleanVideosList(it).distinct())
+                binding.trailerTitle.visibility = View.VISIBLE
+                binding.rvVideos.visibility = View.VISIBLE
+            } else {
+                loadVideo(ArrayList(cleanVideosList(it).distinct()))
+            }
         }
     }
 
@@ -151,22 +162,30 @@ class DetailSerieActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun loadDetail(detailResponse: SerieDetailResponse) {
+
         binding.txtTitleDetail.text = detailResponse.originalTitle
-        binding.txtReleaseDetail.text = resources.getString(R.string.released_on) + detailResponse.releaseDate
+        binding.txtReleaseDetail.text =
+            resources.getString(R.string.released_on) + detailResponse.releaseDate
         binding.txtStatus.text = resources.getString(R.string.status) + detailResponse.status
         binding.txtGenreDetail.text = detailResponse.genres.joinToString(" , ") { it.nameGenre }
         binding.txtDescriptionDetail.text = detailResponse.description
 
         if (detailResponse.duration.isNotEmpty())
-            binding.txtDurationEpisode.text = resources.getString(R.string.episode_duration) + convertDuration(detailResponse.duration[0])
+            binding.txtDurationEpisode.text =
+                resources.getString(R.string.episode_duration) + convertDuration(detailResponse.duration[0])
         else
             binding.txtDurationEpisode.visibility = View.GONE
 
-        binding.txtRatingDetail.text = resources.getString(R.string.rating) + String.format("%.1f", detailResponse.rating).toDouble() + " /10"
-        binding.txtRatingCount.text = "(" + detailResponse.ratingCount.toString() + " " + resources.getString(R.string.votes) + ")"
+        binding.txtRatingDetail.text =
+            resources.getString(R.string.rating) + String.format("%.1f", detailResponse.rating)
+                .toDouble() + " /10"
+        binding.txtRatingCount.text =
+            "(" + detailResponse.ratingCount.toString() + " " + resources.getString(R.string.votes) + ")"
         binding.ratingBar.rating = detailResponse.rating / 2
-        binding.txtSaisonsNumber.text =  resources.getString(R.string.saisons) + detailResponse.saisons
-        binding.txtEpisodesNumber.text =  resources.getString(R.string.episodes) + detailResponse.episodes
+        binding.txtSaisonsNumber.text =
+            resources.getString(R.string.saisons) + detailResponse.saisons
+        binding.txtEpisodesNumber.text =
+            resources.getString(R.string.episodes) + detailResponse.episodes
 
         binding.seasonsTitle.visibility = View.VISIBLE
         binding.rvSeasons.visibility = View.VISIBLE
@@ -179,10 +198,19 @@ class DetailSerieActivity : AppCompatActivity() {
                 try {
                     youTubePlayer.cueVideo(videos[0].key, 0f)
 
-                }catch (e : java.lang.Exception) {
-                    binding.youtubeVideo.visibility = View.INVISIBLE
+                    binding.youtubeVideo.visibility = View.VISIBLE
+                    binding.trailerTitle.visibility = View.VISIBLE
+                } catch (e: java.lang.Exception) {
+                    binding.youtubeVideo.visibility = View.GONE
+                    binding.trailerTitle.visibility = View.GONE
                 }
             }
+
+            override fun onError(youTubePlayer: YouTubePlayer, error: PlayerConstants.PlayerError) {
+                binding.youtubeVideo.visibility = View.GONE
+                binding.trailerTitle.visibility = View.GONE
+            }
+
         })
     }
 
@@ -194,6 +222,16 @@ class DetailSerieActivity : AppCompatActivity() {
     private fun setListSeasons() {
         binding.rvSeasons.setHasFixedSize(true)
         binding.rvSeasons.adapter = adapterSeasons
+
+        adapterSeasons.onClickListener = object : OnClickItemSaison {
+            override fun onClick(saison: Saisons) {
+                val intent = Intent(applicationContext, EpisodesActivity::class.java)
+                intent.putExtra("id", id)
+                intent.putExtra("season", saison.number)
+                intent.putExtra("title", saison.name)
+                startActivity(intent)
+            }
+        }
     }
 
     private fun navigationBack() {
@@ -233,5 +271,19 @@ class DetailSerieActivity : AppCompatActivity() {
                 viewModel.removeShow()
             }
         }
+    }
+
+    private fun cleanVideosList(it: ArrayList<Videos>): ArrayList<Videos> {
+        val youtubePattern = "^(http(s)?://)?((w){3}.)?youtu(be|.be)?(.com)?/.+".toRegex()
+        var i = 1
+        while (i < it.size) {
+            if (it[i].key.isEmpty() || !youtubePattern.matches(it[i].key)) {
+                it.removeAt(i)
+            } else {
+                i++
+            }
+        }
+
+        return it
     }
 }

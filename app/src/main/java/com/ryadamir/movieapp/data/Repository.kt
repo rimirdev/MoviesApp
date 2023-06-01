@@ -6,6 +6,7 @@ import com.ryadamir.movieapp.model.datail.MovieDetailResponse
 import com.ryadamir.movieapp.model.datail.SerieDetailResponse
 import com.ryadamir.movieapp.model.videos.VideosResponse
 import com.ryadamir.movieapp.model.discover.DiscoverResponse
+import com.ryadamir.movieapp.model.episodes.EpisodesResponse
 import com.ryadamir.movieapp.model.favorite.FavoriteDatabase
 import com.ryadamir.movieapp.model.favorite.FavoriteEntity
 import com.ryadamir.movieapp.model.search.serie.SearchSerie
@@ -26,6 +27,10 @@ class Repository(private val api: Api, val favoriteDatabase: FavoriteDatabase) {
 
     fun getMovieVideos(id: Int): Observable<VideosResponse> {
         return api.getMovieVideos(id)
+    }
+
+    fun getEpisodes(id: Int, season: Int): Observable<EpisodesResponse> {
+        return api.getEpisodes(id, season)
     }
 
     fun getSerieVideos(id: Int): Observable<VideosResponse> {
@@ -64,7 +69,12 @@ class Repository(private val api: Api, val favoriteDatabase: FavoriteDatabase) {
     fun getApple(): Observable<SeriesResponse> {
         return api.getApple()
     }
-
+    fun getPrime(): Observable<SeriesResponse> {
+        return api.getPrime()
+    }
+    fun getParamount(): Observable<SeriesResponse> {
+        return api.getParamount()
+    }
     fun getTopRated(): Observable<MovieResponse> {
         return api.getTopRated()
     }

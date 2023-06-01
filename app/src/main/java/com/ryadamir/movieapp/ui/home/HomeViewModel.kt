@@ -30,6 +30,12 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
     private val _appleResponseList = MutableLiveData<ArrayList<Series>>()
     val appleResponseList: LiveData<ArrayList<Series>> = _appleResponseList
 
+    private val _primeResponseList = MutableLiveData<ArrayList<Series>>()
+    val primeResponseList: LiveData<ArrayList<Series>> = _primeResponseList
+
+    private val _paramountResponseList = MutableLiveData<ArrayList<Series>>()
+    val paramountResponseList: LiveData<ArrayList<Series>> = _paramountResponseList
+
     private val _topratedResponseList = MutableLiveData<ArrayList<Movie>>()
     val topratedResponseList: LiveData<ArrayList<Movie>> = _topratedResponseList
 
@@ -93,6 +99,25 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
             .doFinally { }
             .subscribe(
                 { _appleResponseList.postValue(it.results) },
+                { _errorMessage.postValue(it.localizedMessage) })
+        compositeDisposable.add(trendingDisposable)
+    }
+
+    fun requestPrime() {
+        val trendingDisposable = repository.getPrime()
+            .doOnSubscribe { }
+            .doFinally { }
+            .subscribe(
+                { _primeResponseList.postValue(it.results) },
+                { _errorMessage.postValue(it.localizedMessage) })
+        compositeDisposable.add(trendingDisposable)
+    }
+    fun requestParamount() {
+        val trendingDisposable = repository.getParamount()
+            .doOnSubscribe { }
+            .doFinally { }
+            .subscribe(
+                { _paramountResponseList.postValue(it.results) },
                 { _errorMessage.postValue(it.localizedMessage) })
         compositeDisposable.add(trendingDisposable)
     }

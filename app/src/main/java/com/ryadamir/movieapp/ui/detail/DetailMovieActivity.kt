@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
@@ -12,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.ryadamir.movieapp.BuildConfig
@@ -21,6 +23,7 @@ import com.ryadamir.movieapp.model.datail.MovieDetailResponse
 import com.ryadamir.movieapp.model.videos.Videos
 import com.ryadamir.movieapp.ui.adapters.CastAdapter
 import com.ryadamir.movieapp.ui.adapters.movie.MovieAdapter
+import com.ryadamir.movieapp.ui.adapters.videos.VideosAdapter
 import com.ryadamir.movieapp.util.convertDuration
 import kotlinx.android.synthetic.main.activity_detail.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -44,6 +47,10 @@ class DetailMovieActivity : AppCompatActivity() {
         MovieAdapter()
     }
 
+    private val adapterVideos: VideosAdapter by lazy {
+        VideosAdapter()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -51,6 +58,7 @@ class DetailMovieActivity : AppCompatActivity() {
         setFullScreen()
         navigationBack()
         setListCast()
+        setListVideos()
         observeCast()
         observeDetailMovie()
         observeVideoMovie()
@@ -118,9 +126,14 @@ class DetailMovieActivity : AppCompatActivity() {
 
     private fun observeVideoMovie() {
         viewModel.videosResponse.observe(this) {
-            loadVideo(it)
-            binding.trailerTitle.visibility = View.VISIBLE
-            binding.youtubeVideo.visibility = View.VISIBLE
+
+            if (cleanVideosList(it).distinct().size > 1) {
+                adapterVideos.setData(cleanVideosList(it).distinct())
+                binding.trailerTitle.visibility = View.VISIBLE
+                binding.rvVideos.visibility = View.VISIBLE
+            } else {
+                loadVideo(ArrayList(cleanVideosList(it).distinct()))
+            }
         }
     }
 
@@ -178,17 +191,30 @@ class DetailMovieActivity : AppCompatActivity() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
                 try {
                     youTubePlayer.cueVideo(videos[0].key, 0f)
-
+                    binding.youtubeVideo.visibility = View.VISIBLE
+                    binding.trailerTitle.visibility = View.VISIBLE
                 } catch (e: java.lang.Exception) {
-                    binding.youtubeVideo.visibility = View.INVISIBLE
+                    binding.youtubeVideo.visibility = View.GONE
+                    binding.trailerTitle.visibility = View.GONE
                 }
             }
+
+            override fun onError(youTubePlayer: YouTubePlayer, error: PlayerConstants.PlayerError) {
+                binding.youtubeVideo.visibility = View.GONE
+                binding.trailerTitle.visibility = View.GONE
+            }
+
         })
     }
 
     private fun setListCast() {
         binding.rvCast.setHasFixedSize(true)
         binding.rvCast.adapter = adapterCast
+    }
+
+    private fun setListVideos() {
+        binding.rvVideos.setHasFixedSize(true)
+        binding.rvVideos.adapter = adapterVideos
     }
 
     private fun setListRelated() {
@@ -233,6 +259,20 @@ class DetailMovieActivity : AppCompatActivity() {
                 viewModel.removeMovie()
             }
         }
+    }
+
+    private fun cleanVideosList(it: ArrayList<Videos>): ArrayList<Videos> {
+        val youtubePattern = "^(http(s)?://)?((w){3}.)?youtu(be|.be)?(.com)?/.+".toRegex()
+        var i = 1
+        while (i < it.size) {
+            if (it[i].key.isEmpty() || !youtubePattern.matches(it[i].key)) {
+                it.removeAt(i)
+            } else {
+                i++
+            }
+        }
+
+        return it
     }
 
 }

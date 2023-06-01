@@ -34,7 +34,7 @@
         android:maxEms="7"
         android:textColor="@color/white"
         android:maxLines="1"
-        android:text="Cast"
+        android:text=""
         android:textStyle="bold"
         android:textSize="12sp"
         tools:ignore="HardcodedText" />
@@ -48,7 +48,7 @@
         android:maxEms="7"
         android:textColor="@color/grey_font"
         android:maxLines="1"
-        android:text="Cast"
+        android:text=""
         android:textSize="12sp"
         tools:ignore="HardcodedText" />
 
