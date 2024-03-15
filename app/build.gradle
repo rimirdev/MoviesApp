@@ -104,7 +104,8 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
 
     //YouTube player
-    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5' // latest version has problem
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
+    // latest version has problem
 
     //BottomBar
     implementation 'nl.joery.animatedbottombar:library:1.0.9'

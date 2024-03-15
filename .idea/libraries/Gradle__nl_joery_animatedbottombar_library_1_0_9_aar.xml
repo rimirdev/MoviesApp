@@ -1,15 +1,15 @@
 <component name="libraryTable">
-  <library name="Gradle: nl.joery.animatedbottombar:library:1.0.9@aar">
+  <library name="Gradle: nl.joery.animatedbottombar:library:1.0.9@aar" external-system-id="GRADLE">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/5a2be65980734a7d5eb4ec102eb362db/transformed/jetified-library-1.0.9/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/5a2be65980734a7d5eb4ec102eb362db/transformed/jetified-library-1.0.9/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/5a2be65980734a7d5eb4ec102eb362db/transformed/jetified-library-1.0.9/AndroidManifest.xml" />
+      <root url="file://D:/Android/.gradle/caches/transforms-3/5a2be65980734a7d5eb4ec102eb362db/transformed/jetified-library-1.0.9/res" />
+      <root url="file://D:/Android/.gradle/caches/transforms-3/5a2be65980734a7d5eb4ec102eb362db/transformed/jetified-library-1.0.9/AndroidManifest.xml" />
+      <root url="jar://D:/Android/.gradle/caches/transforms-3/5a2be65980734a7d5eb4ec102eb362db/transformed/jetified-library-1.0.9/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/nl.joery.animatedbottombar/library/1.0.9/87ee2fe136623fdf430b8399c2fdba72072a9348/library-1.0.9-javadoc.jar!/" />
+      <root url="jar://D:/Android/.gradle/caches/modules-2/files-2.1/nl.joery.animatedbottombar/library/1.0.9/87ee2fe136623fdf430b8399c2fdba72072a9348/library-1.0.9-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/nl.joery.animatedbottombar/library/1.0.9/cab4e72916fbe591951895b844294728dbe2ee18/library-1.0.9-sources.jar!/" />
+      <root url="jar://D:/Android/.gradle/caches/modules-2/files-2.1/nl.joery.animatedbottombar/library/1.0.9/cab4e72916fbe591951895b844294728dbe2ee18/library-1.0.9-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

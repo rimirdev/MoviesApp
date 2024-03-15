@@ -1,13 +1,13 @@
 <component name="libraryTable">
-  <library name="Gradle: androidx.navigation:navigation-runtime:2.3.1@aar">
+  <library name="Gradle: androidx.navigation:navigation-runtime:2.3.1@aar" external-system-id="GRADLE">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/74d8f33efac80105d5237cc6f2b6192d/transformed/navigation-runtime-2.3.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/74d8f33efac80105d5237cc6f2b6192d/transformed/navigation-runtime-2.3.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/74d8f33efac80105d5237cc6f2b6192d/transformed/navigation-runtime-2.3.1/AndroidManifest.xml" />
+      <root url="file://D:/Android/.gradle/caches/transforms-3/74d8f33efac80105d5237cc6f2b6192d/transformed/navigation-runtime-2.3.1/res" />
+      <root url="file://D:/Android/.gradle/caches/transforms-3/74d8f33efac80105d5237cc6f2b6192d/transformed/navigation-runtime-2.3.1/AndroidManifest.xml" />
+      <root url="jar://D:/Android/.gradle/caches/transforms-3/74d8f33efac80105d5237cc6f2b6192d/transformed/navigation-runtime-2.3.1/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.navigation/navigation-runtime/2.3.1/4b8041b3bde30ec200bcb9bafcee0c203b6f536/navigation-runtime-2.3.1-sources.jar!/" />
+      <root url="jar://D:/Android/.gradle/caches/modules-2/files-2.1/androidx.navigation/navigation-runtime/2.3.1/4b8041b3bde30ec200bcb9bafcee0c203b6f536/navigation-runtime-2.3.1-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
